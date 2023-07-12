@@ -1,8 +1,9 @@
 package com.udacity.pricing.api;
 
-import com.udacity.pricing.domain.price.Price;
-import com.udacity.pricing.service.PriceException;
-import com.udacity.pricing.service.PricingService;
+import com.udacity.pricing.config.PricingConfig;
+import com.udacity.pricing.entity.Price;
+import com.udacity.pricing.exception.PriceException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,7 @@ public class PricingController {
     @GetMapping
     public Price get(@RequestParam Long vehicleId) {
         try {
-            return PricingService.getPrice(vehicleId);
+            return PricingConfig.getPrice(vehicleId);
         } catch (PriceException ex) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Price Not Found", ex);
